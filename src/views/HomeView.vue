@@ -1,6 +1,8 @@
 <script setup>
 import Primero from "@/components/Primero.vue";
 import Segundo from "@/components/Segundo.vue";
+import Tercero from "@/components/Tercero.vue";
+import Cuarto from "@/components/Cuarto.vue";
 </script>
 
 <template>
@@ -26,6 +28,8 @@ import Segundo from "@/components/Segundo.vue";
       <div>
         <Primero />
         <Segundo />
+        <Tercero />
+        <Cuarto />
       </div>
     </v-main>
   </div>
