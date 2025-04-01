@@ -8,13 +8,20 @@ const route = useRoute();
 
 <template>
   <VApp>
-    <div v-if="route.path == '/crm'">
+    <div
+      v-if="
+        route.path == '/crm' ||
+        route.path == '/crm/usuarios' ||
+        route.path == '/crm/compras' ||
+        route.path == '/crm/productos'
+      "
+    >
       <v-navigation-drawer app>
         <v-list nav class="mt-4">
           <v-list-item link to="/">Inicio</v-list-item>
-          <v-list-item link to="/usuarios">Usuarios</v-list-item>
-          <v-list-item link to="/compras">Compras</v-list-item>
-          <v-list-item link to="/crm">CRM</v-list-item>
+          <v-list-item link to="/crm/usuarios">Usuarios</v-list-item>
+          <v-list-item link to="/crm/compras">Compras</v-list-item>
+          <v-list-item link to="/crm/productos">Productos</v-list-item>
         </v-list>
       </v-navigation-drawer>
 

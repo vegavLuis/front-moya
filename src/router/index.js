@@ -12,7 +12,24 @@ const router = createRouter({
     {
       path: "/crm",
       name: "crm",
-      component: () => import("../views/crm.vue"),
+      component: () => import("../views/Crm.vue"),
+      children: [
+        {
+          path: "/usuarios",
+          name: "usuarios",
+          // component: () => import("../views/CrmClientes.vue"), // Este es el componente hijo
+        },
+        {
+          path: "/compras",
+          name: "compras",
+          // component: () => import("../views/CrmClientes.vue"), // Este es el componente hijo
+        },
+        {
+          path: "productos",
+          name: "productos",
+          component: () => import("../views/Productos.vue"),
+        },
+      ],
     },
     {
       path: "/about",
