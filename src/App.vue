@@ -2,20 +2,24 @@
 import { useRoute } from "vue-router";
 import { RouterView } from "vue-router";
 import HomeView from "./views/HomeView.vue";
+import Login from "./views/Login.vue";
+import CrearCuenta from './views/CrearCuenta.vue'
 
+// Obtiene la ruta activa
 const route = useRoute();
 </script>
 
 <template>
   <VApp>
-    <div
-      v-if="
-        route.path == '/crm' ||
-        route.path == '/crm/usuarios' ||
-        route.path == '/crm/compras' ||
-        route.path == '/crm/productos'
-      "
-    >
+    <div v-if="route.path === '/login'">
+      <Login />
+    </div>
+    
+    <div v-else-if="route.path === '/crear-cuenta'">
+      <CrearCuenta />
+    </div>
+    
+    <div v-else-if="route.path.startsWith('/crm')">
       <v-navigation-drawer app>
         <v-list nav class="mt-4">
           <v-list-item link to="/">Inicio</v-list-item>

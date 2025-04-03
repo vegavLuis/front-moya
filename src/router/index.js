@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "@/stores/auth.js";
 import HomeView from "../views/HomeView.vue";
 
 const router = createRouter({
@@ -8,25 +9,42 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+      meta: { requiresAuth: false },
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: () => import("../views/Login.vue"),
+      meta: { requiresAuth: false },
+    },
+    {
+      path: "/crear-cuenta",
+      name: "crearCuenta",
+      component: () => import("../views/CrearCuenta.vue"),
+      meta: { requiresAuth: false },
     },
     {
       path: "/crm",
       name: "crm",
+      meta: { requiresAuth: true },
       component: () => import("../views/Crm.vue"),
       children: [
         {
-          path: "/usuarios",
+          path: "usuarios",
           name: "usuarios",
-          // component: () => import("../views/CrmClientes.vue"), // Este es el componente hijo
+          meta: { requiresAuth: true },
+          component: () => import("../views/Productos.vue"),
         },
         {
-          path: "/compras",
+          path: "compras",
           name: "compras",
-          // component: () => import("../views/CrmClientes.vue"), // Este es el componente hijo
+          meta: { requiresAuth: true },
+          component: () => import("../views/Productos.vue"),
         },
         {
           path: "productos",
           name: "productos",
+          meta: { requiresAuth: true },
           component: () => import("../views/Productos.vue"),
         },
       ],
@@ -37,6 +55,18 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+
+  if (to.name === "login" && authStore.isAuthenticated()) {
+    next({ name: "home" });
+  } else if (to.meta.requiresAuth && !authStore.isAuthenticated()) {
+    next({ name: "login" });
+  } else {
+    next();
+  }
 });
 
 export default router;

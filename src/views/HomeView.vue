@@ -5,8 +5,10 @@ import Segundo from "@/components/Segundo.vue";
 import Tercero from "@/components/Tercero.vue";
 import Cuarto from "@/components/Cuarto.vue";
 import { useCarritoStore } from "@/stores/carrito.js";
+import { useAuthStore } from "@/stores/auth.js";
 
 const dataCarrito = useCarritoStore();
+const dataAuth = useAuthStore();
 </script>
 
 <template>
@@ -70,7 +72,14 @@ const dataCarrito = useCarritoStore();
                         ></v-btn>
                       </v-col>
                       <v-col cols="12">
-                        <v-btn block class="mt-3" size="small" color="red" @click="dataCarrito.eliminar(item)">Eliminar</v-btn>
+                        <v-btn
+                          block
+                          class="mt-3"
+                          size="small"
+                          color="red"
+                          @click="dataCarrito.eliminar(item)"
+                          >Eliminar</v-btn
+                        >
                       </v-col>
                     </v-row>
                     <br />
@@ -83,6 +92,15 @@ const dataCarrito = useCarritoStore();
           </v-list-item>
         </v-list>
       </v-menu>
+      <div v-if="dataAuth.user?.nombre">
+        <p>{{ dataAuth.user.nombre }}
+        <v-btn v-if="dataAuth.user?.nombre" color="red" size="small" @click="dataAuth.cerrarSesion">Cerrar Sesion</v-btn>
+        </p>
+      </div>
+      <div v-else>
+        <v-btn color="green" size="small" to="/login">Login</v-btn>
+        <v-btn color="primary" size="small" to="/crear-cuenta">Crear Cuenta</v-btn>
+      </div>
     </v-app-bar>
 
     <v-main>
