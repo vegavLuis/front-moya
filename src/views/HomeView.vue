@@ -1,8 +1,12 @@
 <script setup>
+import { ref } from "vue";
 import Primero from "@/components/Primero.vue";
 import Segundo from "@/components/Segundo.vue";
 import Tercero from "@/components/Tercero.vue";
 import Cuarto from "@/components/Cuarto.vue";
+import { useCarritoStore } from "@/stores/carrito.js";
+
+const dataCarrito = useCarritoStore();
 </script>
 
 <template>
@@ -19,9 +23,66 @@ import Cuarto from "@/components/Cuarto.vue";
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-cart</v-icon>
-      </v-btn>
+      <v-menu max-height="500" width="230" :close-on-content-click="false">
+        <template v-slot:activator="{ props }">
+          <v-btn icon v-bind="props">
+            <v-icon>mdi-cart</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in dataCarrito.carrito"
+            :key="index"
+            :value="index"
+          >
+            <v-card color="transparent">
+              <v-row no-gutters>
+                <v-col cols="12">
+                  <v-card color="transparent ">
+                    <v-row no-gutters="">
+                      <v-col cols="12">
+                        {{ item.nombre }}
+                      </v-col>
+                      <v-col cols="12" class="d-flex justify-center">
+                        <v-img :src="item.imagenBase64" max-width="60" />
+                      </v-col>
+                      <v-col cols="6" class="d-flex justify-start"
+                        >Cantidad: {{ item.cantidad }}</v-col
+                      >
+                      <v-col cols="6" class="d-flex justify-end"
+                        >$ {{ item.precioTotal }}
+                      </v-col>
+                      <v-col cols="12" class="d-flex justify-space-evenly mt-3">
+                        <v-btn
+                          density="compact"
+                          size="small"
+                          icon="mdi-minus"
+                          color="blue"
+                          @click="dataCarrito.disminuir(item)"
+                        ></v-btn>
+                        1
+                        <v-btn
+                          density="compact"
+                          size="small"
+                          icon="mdi-plus"
+                          color="green"
+                          @click="dataCarrito.aumentar(item)"
+                        ></v-btn>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-btn block class="mt-3" size="small" color="red" @click="dataCarrito.eliminar(item)">Eliminar</v-btn>
+                      </v-col>
+                    </v-row>
+                    <br />
+
+                    <br />
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
     <v-main>
