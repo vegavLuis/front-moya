@@ -20,7 +20,7 @@ const route = useRoute();
     </div>
     
     <div v-else-if="route.path.startsWith('/crm')">
-      <v-navigation-drawer app>
+      <v-navigation-drawer app permanent>
         <v-list nav class="mt-4">
           <v-list-item link to="/">Inicio</v-list-item>
           <v-list-item link to="/crm/usuarios">Usuarios</v-list-item>

@@ -1,5 +1,5 @@
 <script setup></script>
 <template>
-  <div>Crm</div>
+  <router-view></router-view>
 </template>
 <style scoped></style>

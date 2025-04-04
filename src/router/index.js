@@ -33,13 +33,13 @@ const router = createRouter({
           path: "usuarios",
           name: "usuarios",
           meta: { requiresAuth: true },
-          component: () => import("../views/Productos.vue"),
+          component: () => import("../views/Usuarios.vue"),
         },
         {
           path: "compras",
           name: "compras",
           meta: { requiresAuth: true },
-          component: () => import("../views/Productos.vue"),
+          component: () => import("../views/Compras.vue"),
         },
         {
           path: "productos",
