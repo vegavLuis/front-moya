@@ -1,5 +1,7 @@
-<script setup></script>
+<script setup>
+import Index from "@/components/usuarios/Index.vue";
+</script>
 <template>
-  <div>Usuarios</div>
+  <Index />
 </template>
 <style scoped></style>
